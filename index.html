@@ -2,19 +2,10 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Secure Browser Proktor - CBT SMPN 266 Jakarta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring Proktor - CBT SMPN 266 Jakarta</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Mencegah seleksi teks */
-        body {
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            touch-action: pan-y;
-        }
-        
         /* Animasi background gradient yang futuristik dan soft */
         .bg-futuristic {
             background: linear-gradient(-45deg, #e0c3fc, #8ec5fc, #e0c3fc, #8ec5fc);
@@ -58,7 +49,7 @@
         }
     </style>
 </head>
-<body class="bg-futuristic min-h-screen font-sans text-gray-800 overflow-hidden flex flex-col items-center justify-center relative">
+<body class="bg-futuristic min-h-screen font-sans text-gray-800 flex flex-col items-center justify-center relative">
 
     <!-- Ornamen Dekorasi Cahaya Blur -->
     <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse pointer-events-none"></div>
@@ -73,150 +64,172 @@
              onerror="this.src='cropped-1_Logo_SMP.-N-266-2.webp'">
         
         <h1 class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-800 mb-1 leading-tight tracking-wide">
-            SECURE BROWSER PROKTOR
+            PORTAL MONITORING PROKTOR
         </h1>
-        <h2 class="text-md font-bold text-gray-600 mb-6 tracking-widest">CBT SMPN 266 JAKARTA</h2>
+        <h2 class="text-md font-bold text-gray-600 mb-8 tracking-widest">CBT SMPN 266 JAKARTA</h2>
 
-        <div class="bg-white/60 border border-indigo-100 rounded-xl p-5 mb-8 text-left text-sm text-indigo-900 shadow-inner">
-            <p class="font-bold mb-3 flex items-center text-indigo-800">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                Status Keamanan Sesi Proktor:
-            </p>
-            <ul class="list-disc pl-5 space-y-1.5 font-medium opacity-80">
-                <li>Aplikasi dikunci dalam mode <span class="font-bold">Layar Penuh</span>.</li>
-                <li>Membuka <span class="font-bold">Tab Baru / Pop-up</span> diblokir.</li>
-                <li>Fungsi <span class="font-bold">Klik Kanan & Inspect Element</span> dimatikan.</li>
-                <li>Sesi tertutup otomatis jika keluar dari layar penuh.</li>
-            </ul>
-        </div>
-
-        <button onclick="launchProctorBrowser()" class="w-full glow-button bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-1 focus:outline-none uppercase tracking-widest">
-            MASUK APLIKASI
+        <button onclick="launchApp()" class="w-full glow-button bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-1 focus:outline-none uppercase tracking-widest">
+            Buka Dashboard
         </button>
     </div>
 
-    <!-- HALAMAN APLIKASI (IFRAME LENGKAP) -->
+    <!-- HALAMAN APLIKASI (IFRAME PORTAL) -->
     <div id="browser-page" class="hidden w-full h-screen bg-gray-50 flex-col relative z-20">
         
-        <!-- Header Keamanan Proktor -->
-        <div class="bg-indigo-900 text-indigo-200 px-4 py-2.5 flex justify-between items-center text-xs shadow-md z-20">
-            <div class="flex items-center space-x-2">
-                <span class="relative flex h-3 w-3">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                </span>
-                <span class="font-mono tracking-widest font-semibold text-white">PROCTOR SECURE SESSION LOCKED</span>
+        <!-- Header Navigasi Proktor -->
+        <div class="bg-indigo-900 text-indigo-100 px-4 py-3 flex justify-between items-center text-sm shadow-md z-20">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-800 p-1.5 rounded-lg flex space-x-2">
+                    <!-- Tombol Kembali/Refresh Internal -->
+                    <button onclick="refreshIframe()" class="hover:bg-indigo-600 p-1 rounded transition tooltip" title="Muat Ulang">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    </button>
+                    <!-- Tombol Home Admin -->
+                    <button onclick="goHome()" class="hover:bg-indigo-600 p-1 rounded transition tooltip" title="Beranda Admin">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    </button>
+                </div>
+                <span class="font-bold tracking-wider hidden sm:inline">DASHBOARD MONITORING</span>
             </div>
-            <div class="font-bold text-white tracking-wider">ADMIN CBT SMPN 266</div>
+            
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleFullscreen()" class="text-indigo-200 hover:text-white transition flex items-center text-xs border border-indigo-700 px-2 py-1 rounded">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                    Layar Penuh
+                </button>
+                <button onclick="exitApp()" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded transition font-bold text-xs shadow-sm">
+                    Tutup Portal
+                </button>
+            </div>
         </div>
 
         <!-- Indikator Loading -->
         <div id="loading-indicator" class="absolute inset-0 flex items-center justify-center bg-gray-50 z-10">
             <div class="flex flex-col items-center">
                 <div class="loader mb-4"></div>
-                <p class="text-indigo-600 font-semibold animate-pulse">Memuat dashboard proktor...</p>
+                <p class="text-indigo-600 font-semibold animate-pulse">Memuat aplikasi...</p>
             </div>
         </div>
         
-        <!-- 
-            PENGATURAN SANDBOX KETAT:
-            Mencegah 'allow-popups' agar sistem admin tidak bisa membuka tab baru sama sekali.
-        -->
+        <!-- Iframe Aplikasi -->
         <iframe id="proctor-frame" 
+                name="proctor-frame"
                 src="" 
-                class="w-full h-full border-none relative z-0"
-                sandbox="allow-scripts allow-same-origin allow-forms"
-                onload="document.getElementById('loading-indicator').style.display='none';">
+                class="w-full flex-grow border-none relative z-0"
+                allow="fullscreen; autoplay">
         </iframe>
-    </div>
-
-    <!-- HALAMAN BLOKIR / KELUAR -->
-    <div id="lock-page" class="hidden flex-col items-center justify-center min-h-screen bg-rose-600 p-4 absolute inset-0 z-50">
-        <div class="bg-white rounded-2xl shadow-2xl p-10 max-w-lg w-full text-center">
-            <svg class="w-20 h-20 text-rose-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-            <h1 class="text-3xl font-black text-gray-900 mb-2">SESI PROKTOR DITUTUP</h1>
-            <p class="text-gray-600 mb-8 font-medium leading-relaxed">Keamanan sistem mendeteksi Anda telah keluar dari mode layar penuh. Untuk alasan keamanan, sesi proktor telah dihentikan otomatis.</p>
-            <button onclick="location.reload()" class="bg-gray-900 hover:bg-black text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-transform hover:scale-105">
-                Kembali ke Login Proktor
-            </button>
-        </div>
     </div>
 
     <script>
         const PROCTOR_URL = "https://sman45jkt.com/#/admin";
-        let isSessionRunning = false;
 
-        // 1. BLOKIR KLIK KANAN
-        document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // 2. BLOKIR TOMBOL KEYBOARD BERBAHAYA
-        document.addEventListener('keydown', function(e) {
-            // Blokir F12 (Inspect Element)
-            if (e.key === 'F12') {
-                e.preventDefault();
-            }
-            // Blokir kombinasi Ctrl (Ctrl+T, Ctrl+N, dll)
-            if (e.ctrlKey) {
-                const blockedKeys = ['t', 'n', 'r', 'p', 's', 'w', 'j', 'u'];
-                if (blockedKeys.includes(e.key.toLowerCase())) {
-                    e.preventDefault();
-                }
-            }
-        });
-
-        function launchProctorBrowser() {
-            let elem = document.documentElement;
-
-            // Meminta mode Fullscreen
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen().then(startIframe).catch(showError);
-            } else if (elem.webkitRequestFullscreen) { /* Safari */
-                elem.webkitRequestFullscreen().then(startIframe).catch(showError);
-            } else if (elem.msRequestFullscreen) { /* IE11 */
-                elem.msRequestFullscreen().then(startIframe).catch(showError);
-            } else {
-                alert("Browser Anda tidak mendukung fitur keamanan Fullscreen.");
-            }
-        }
-
-        function startIframe() {
-            // Transisi UI
+        function launchApp() {
+            // Sembunyikan Landing, Tampilkan Browser
             document.getElementById('setup-page').classList.add('hidden');
             document.getElementById('browser-page').classList.remove('hidden');
             document.getElementById('browser-page').classList.add('flex');
             
-            // Masukkan URL ke iframe
-            document.getElementById('proctor-frame').src = PROCTOR_URL;
-            isSessionRunning = true;
+            const frame = document.getElementById('proctor-frame');
+            
+            // Tambahkan event penahan tab baru setiap kali halaman di dalam iframe dimuat ulang
+            frame.addEventListener('load', handleIframeLoad);
 
-            // Pantau status fullscreen
-            document.addEventListener('fullscreenchange', checkFullscreen);
-            document.addEventListener('webkitfullscreenchange', checkFullscreen);
+            // Muat URL
+            frame.src = PROCTOR_URL;
         }
 
-        function checkFullscreen() {
-            // Jika keluar dari fullscreen saat sesi masih berjalan
-            if (!document.fullscreenElement && !document.webkitFullscreenElement && isSessionRunning) {
-                triggerLockdown();
+        function goHome() {
+            document.getElementById('loading-indicator').style.display = 'flex';
+            document.getElementById('proctor-frame').src = PROCTOR_URL;
+        }
+
+        function refreshIframe() {
+            document.getElementById('loading-indicator').style.display = 'flex';
+            const frame = document.getElementById('proctor-frame');
+            // Coba reload secara internal, jika gagal karena CORS, setel ulang URL
+            try {
+                frame.contentWindow.location.reload();
+            } catch (e) {
+                frame.src = frame.src; 
             }
         }
 
-        function triggerLockdown() {
-            isSessionRunning = false;
-            
-            // Hapus isi iframe untuk mengamankan data
+        function exitApp() {
             document.getElementById('proctor-frame').src = "";
-            
-            // Tampilkan UI Blokir
             document.getElementById('browser-page').classList.add('hidden');
             document.getElementById('browser-page').classList.remove('flex');
-            document.getElementById('lock-page').classList.remove('hidden');
-            document.getElementById('lock-page').classList.add('flex');
+            document.getElementById('setup-page').classList.remove('hidden');
         }
 
-        function showError(err) {
-            alert("Gagal mengaktifkan mode keamanan. Pastikan Anda mengizinkan mode Layar Penuh (Fullscreen) pada browser ini.");
-            console.error(err);
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    alert(`Gagal mengaktifkan layar penuh: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // --- SISTEM PENAHAN TAB BARU (INTERCEPTOR) ---
+        function handleIframeLoad() {
+            document.getElementById('loading-indicator').style.display = 'none';
+            
+            try {
+                const frame = document.getElementById('proctor-frame');
+                const win = frame.contentWindow;
+                const doc = win.document;
+                
+                // 1. INJEKSI TAG <BASE>
+                let baseTag = doc.querySelector('base');
+                if (!baseTag) {
+                    baseTag = doc.createElement('base');
+                    doc.head.appendChild(baseTag);
+                }
+                baseTag.target = '_self'; // Memaksa semua rute default untuk buka di tempat yang sama
+
+                // 2. TIMPA FUNGSI WINDOW.OPEN (Untuk tombol cetak kartu, laporan, dll)
+                win.open = function(url, target, features) {
+                    if (url) {
+                        frame.src = url; 
+                    }
+                    return win;
+                };
+
+                // 3. UBAH ATRIBUT TARGET PADA ELEMEN YANG SUDAH ADA
+                const forceSelfTarget = () => {
+                    const elements = doc.querySelectorAll('[target="_blank"], [target="_new"]');
+                    elements.forEach(el => {
+                        el.target = '_self';
+                    });
+                };
+                
+                forceSelfTarget();
+                
+                // Pantau jika aplikasi merender tombol baru (React/Vue/AJAX)
+                const observer = new MutationObserver(forceSelfTarget);
+                observer.observe(doc.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['target'] });
+
+                // 4. CEGAT KLIK MENDADAK
+                doc.addEventListener('click', function(e) {
+                    let target = e.target;
+                    while (target && target !== doc) {
+                        if (target.tagName === 'A' && (target.target === '_blank' || target.target === '_new')) {
+                            target.target = '_self';
+                            break;
+                        }
+                        target = target.parentNode;
+                    }
+                }, true);
+
+            } catch (error) {
+                // Sengaja dikosongkan (silent fail). 
+                // Jika error muncul (karena dijalankan beda domain), aplikasi tidak akan berhenti,
+                // hanya saja sistem penahan tab baru tidak bisa bekerja sempurna.
+                console.log("CORS mencegah injeksi script penahan tab. Pastikan file ini diupload di sman45jkt.com");
+            }
         }
     </script>
 </body>
