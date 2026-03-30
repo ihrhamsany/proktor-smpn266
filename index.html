@@ -2,10 +2,19 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proktor CBT SMPN 266 Jakarta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Secure Browser Proktor - CBT SMPN 266 Jakarta</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Mencegah seleksi teks */
+        body {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            touch-action: pan-y;
+        }
+        
         /* Animasi background gradient yang futuristik dan soft */
         .bg-futuristic {
             background: linear-gradient(-45deg, #e0c3fc, #8ec5fc, #e0c3fc, #8ec5fc);
@@ -18,118 +27,196 @@
             100% { background-position: 0% 50%; }
         }
         
-        /* Efek Glassmorphism untuk kotak konten */
+        /* Efek Glassmorphism */
         .glass-card {
-            background: rgba(255, 255, 255, 0.65);
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
-        
-        /* Efek cahaya pada tombol (glow) */
+
         .glow-button {
             box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
         }
         .glow-button:hover {
             box-shadow: 0 0 25px rgba(99, 102, 241, 0.8);
         }
+
+        /* Animasi loading */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4f46e5;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
-<body class="min-h-screen font-sans text-gray-800 bg-futuristic overflow-hidden">
+<body class="bg-futuristic min-h-screen font-sans text-gray-800 overflow-hidden flex flex-col items-center justify-center relative">
 
-    <!-- HALAMAN DEPAN (LANDING PAGE) -->
-    <div id="landing-page" class="flex flex-col items-center justify-center min-h-screen p-4 relative z-10">
+    <!-- Ornamen Dekorasi Cahaya Blur -->
+    <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse pointer-events-none" style="animation-delay: 2s;"></div>
+
+    <!-- HALAMAN PERSIAPAN (LANDING) -->
+    <div id="setup-page" class="glass-card rounded-[2rem] p-10 max-w-lg w-full text-center relative z-10 mx-4 transition-all duration-500">
         
-        <!-- Ornamen Dekorasi Cahaya Blur -->
-        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse" style="animation-delay: 2s;"></div>
+        <img src="https://smpnegeri266jkt.sch.id/wp-content/uploads/2023/06/cropped-1_Logo_SMP.-N-266-2.png" 
+             alt="Logo SMPN 266" 
+             class="w-24 h-24 object-contain mx-auto mb-6 drop-shadow-lg" 
+             onerror="this.src='cropped-1_Logo_SMP.-N-266-2.webp'">
+        
+        <h1 class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-800 mb-1 leading-tight tracking-wide">
+            SECURE BROWSER PROKTOR
+        </h1>
+        <h2 class="text-md font-bold text-gray-600 mb-6 tracking-widest">CBT SMPN 266 JAKARTA</h2>
 
-        <!-- Kontainer Utama -->
-        <div class="glass-card rounded-[2rem] p-12 max-w-xl w-full text-center relative z-20 transition-all duration-500 hover:scale-[1.02]">
-            
-            <!-- Logo Sesuai URL yang diminta -->
-            <img src="https://smpnegeri266jkt.sch.id/wp-content/uploads/2023/06/cropped-1_Logo_SMP.-N-266-2.png" 
-                 alt="Logo SMPN 266" 
-                 class="w-28 h-28 object-contain mx-auto drop-shadow-xl mb-6 transition-transform duration-700 hover:rotate-[360deg]" 
-                 onerror="this.src='https://via.placeholder.com/150?text=Logo+SMPN+266'">
-            
-            <!-- Judul -->
-            <h1 class="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-700 mb-10 tracking-wider leading-tight">
-                APLIKASI PROKTOR CBT<br>SMPN 266 JAKARTA
-            </h1>
-
-            <!-- Tombol Masuk -->
-            <button onclick="startProctorApp()" class="glow-button bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold py-3.5 px-16 rounded-full text-lg transform transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-indigo-300">
-                MASUK
-            </button>
-            
-            <!-- Footer Text -->
-            <div class="mt-10 border-t border-gray-300/50 pt-4">
-                <p class="text-xs text-indigo-900/60 font-semibold tracking-[0.2em]">
-                    SISTEM MANAJEMEN UJIAN
-                </p>
-            </div>
+        <div class="bg-white/60 border border-indigo-100 rounded-xl p-5 mb-8 text-left text-sm text-indigo-900 shadow-inner">
+            <p class="font-bold mb-3 flex items-center text-indigo-800">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                Status Keamanan Sesi Proktor:
+            </p>
+            <ul class="list-disc pl-5 space-y-1.5 font-medium opacity-80">
+                <li>Aplikasi dikunci dalam mode <span class="font-bold">Layar Penuh</span>.</li>
+                <li>Membuka <span class="font-bold">Tab Baru / Pop-up</span> diblokir.</li>
+                <li>Fungsi <span class="font-bold">Klik Kanan & Inspect Element</span> dimatikan.</li>
+                <li>Sesi tertutup otomatis jika keluar dari layar penuh.</li>
+            </ul>
         </div>
+
+        <button onclick="launchProctorBrowser()" class="w-full glow-button bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-1 focus:outline-none uppercase tracking-widest">
+            MASUK APLIKASI
+        </button>
     </div>
 
-    <!-- HALAMAN PROKTOR (IFRAME FULLSCREEN) -->
-    <div id="proctor-page" class="hidden w-full h-screen bg-gray-100 flex-col relative z-20">
+    <!-- HALAMAN APLIKASI (IFRAME LENGKAP) -->
+    <div id="browser-page" class="hidden w-full h-screen bg-gray-50 flex-col relative z-20">
         
-        <!-- Tombol Keluar Fullscreen (Tersembunyi, muncul saat di-hover di pojok kanan atas) -->
-        <div class="absolute top-0 right-0 p-3 z-50 opacity-0 hover:opacity-100 transition-opacity duration-300">
-            <button onclick="exitProctorApp()" class="bg-red-500/90 hover:bg-red-600 text-white text-xs font-bold px-4 py-2 rounded-lg shadow-lg backdrop-blur-sm transition-transform hover:scale-105">
-                Keluar Aplikasi
-            </button>
+        <!-- Header Keamanan Proktor -->
+        <div class="bg-indigo-900 text-indigo-200 px-4 py-2.5 flex justify-between items-center text-xs shadow-md z-20">
+            <div class="flex items-center space-x-2">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </span>
+                <span class="font-mono tracking-widest font-semibold text-white">PROCTOR SECURE SESSION LOCKED</span>
+            </div>
+            <div class="font-bold text-white tracking-wider">ADMIN CBT SMPN 266</div>
+        </div>
+
+        <!-- Indikator Loading -->
+        <div id="loading-indicator" class="absolute inset-0 flex items-center justify-center bg-gray-50 z-10">
+            <div class="flex flex-col items-center">
+                <div class="loader mb-4"></div>
+                <p class="text-indigo-600 font-semibold animate-pulse">Memuat dashboard proktor...</p>
+            </div>
         </div>
         
-        <!-- Iframe URL Tujuan Admin -->
-        <iframe id="proctor-frame" src="" class="w-full h-full border-none bg-white"></iframe>
+        <!-- 
+            PENGATURAN SANDBOX KETAT:
+            Mencegah 'allow-popups' agar sistem admin tidak bisa membuka tab baru sama sekali.
+        -->
+        <iframe id="proctor-frame" 
+                src="" 
+                class="w-full h-full border-none relative z-0"
+                sandbox="allow-scripts allow-same-origin allow-forms"
+                onload="document.getElementById('loading-indicator').style.display='none';">
+        </iframe>
+    </div>
+
+    <!-- HALAMAN BLOKIR / KELUAR -->
+    <div id="lock-page" class="hidden flex-col items-center justify-center min-h-screen bg-rose-600 p-4 absolute inset-0 z-50">
+        <div class="bg-white rounded-2xl shadow-2xl p-10 max-w-lg w-full text-center">
+            <svg class="w-20 h-20 text-rose-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            <h1 class="text-3xl font-black text-gray-900 mb-2">SESI PROKTOR DITUTUP</h1>
+            <p class="text-gray-600 mb-8 font-medium leading-relaxed">Keamanan sistem mendeteksi Anda telah keluar dari mode layar penuh. Untuk alasan keamanan, sesi proktor telah dihentikan otomatis.</p>
+            <button onclick="location.reload()" class="bg-gray-900 hover:bg-black text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-transform hover:scale-105">
+                Kembali ke Login Proktor
+            </button>
+        </div>
     </div>
 
     <script>
-        // URL tujuan untuk proktor
         const PROCTOR_URL = "https://sman45jkt.com/#/admin";
+        let isSessionRunning = false;
 
-        // Fungsi Memulai Aplikasi Proktor
-        function startProctorApp() {
-            // Sembunyikan Landing Page, Tampilkan Iframe Page
-            document.getElementById('landing-page').classList.add('hidden');
-            document.getElementById('proctor-page').classList.remove('hidden');
-            document.getElementById('proctor-page').classList.add('flex');
-            
-            // Masukkan link tujuan ke dalam iframe
-            document.getElementById('proctor-frame').src = PROCTOR_URL;
-            
-            // Aktifkan mode Fullscreen
+        // 1. BLOKIR KLIK KANAN
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // 2. BLOKIR TOMBOL KEYBOARD BERBAHAYA
+        document.addEventListener('keydown', function(e) {
+            // Blokir F12 (Inspect Element)
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+            // Blokir kombinasi Ctrl (Ctrl+T, Ctrl+N, dll)
+            if (e.ctrlKey) {
+                const blockedKeys = ['t', 'n', 'r', 'p', 's', 'w', 'j', 'u'];
+                if (blockedKeys.includes(e.key.toLowerCase())) {
+                    e.preventDefault();
+                }
+            }
+        });
+
+        function launchProctorBrowser() {
             let elem = document.documentElement;
+
+            // Meminta mode Fullscreen
             if (elem.requestFullscreen) {
-                elem.requestFullscreen().catch(err => console.log("Gagal fullscreen:", err));
+                elem.requestFullscreen().then(startIframe).catch(showError);
             } else if (elem.webkitRequestFullscreen) { /* Safari */
-                elem.webkitRequestFullscreen();
+                elem.webkitRequestFullscreen().then(startIframe).catch(showError);
             } else if (elem.msRequestFullscreen) { /* IE11 */
-                elem.msRequestFullscreen();
+                elem.msRequestFullscreen().then(startIframe).catch(showError);
+            } else {
+                alert("Browser Anda tidak mendukung fitur keamanan Fullscreen.");
             }
         }
 
-        // Fungsi Keluar Aplikasi Proktor
-        function exitProctorApp() {
-            // Keluar dari fullscreen jika sedang aktif
-            if (document.fullscreenElement || document.webkitFullscreenElement) {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen().catch(err => console.log(err));
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                }
+        function startIframe() {
+            // Transisi UI
+            document.getElementById('setup-page').classList.add('hidden');
+            document.getElementById('browser-page').classList.remove('hidden');
+            document.getElementById('browser-page').classList.add('flex');
+            
+            // Masukkan URL ke iframe
+            document.getElementById('proctor-frame').src = PROCTOR_URL;
+            isSessionRunning = true;
+
+            // Pantau status fullscreen
+            document.addEventListener('fullscreenchange', checkFullscreen);
+            document.addEventListener('webkitfullscreenchange', checkFullscreen);
+        }
+
+        function checkFullscreen() {
+            // Jika keluar dari fullscreen saat sesi masih berjalan
+            if (!document.fullscreenElement && !document.webkitFullscreenElement && isSessionRunning) {
+                triggerLockdown();
             }
+        }
+
+        function triggerLockdown() {
+            isSessionRunning = false;
             
-            // Kembalikan antarmuka ke halaman utama
-            document.getElementById('proctor-page').classList.add('hidden');
-            document.getElementById('proctor-page').classList.remove('flex');
-            document.getElementById('landing-page').classList.remove('hidden');
-            
-            // Kosongkan iframe untuk mereset sesi
+            // Hapus isi iframe untuk mengamankan data
             document.getElementById('proctor-frame').src = "";
+            
+            // Tampilkan UI Blokir
+            document.getElementById('browser-page').classList.add('hidden');
+            document.getElementById('browser-page').classList.remove('flex');
+            document.getElementById('lock-page').classList.remove('hidden');
+            document.getElementById('lock-page').classList.add('flex');
+        }
+
+        function showError(err) {
+            alert("Gagal mengaktifkan mode keamanan. Pastikan Anda mengizinkan mode Layar Penuh (Fullscreen) pada browser ini.");
+            console.error(err);
         }
     </script>
 </body>
